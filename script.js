@@ -65,6 +65,7 @@
   /* ---------- 侧边栏：滚动高亮 + 移动端抽屉 ---------- */
   var sidebar = document.getElementById("sidebar");
   var navToggle = document.getElementById("navToggle");
+  var menuBtn = document.getElementById("menuBtn");
   var navLinksBox = document.getElementById("navLinks");
   var scrim = document.getElementById("scrim");
   var navAnchors = Array.prototype.slice.call(document.querySelectorAll(".nav-link"));
@@ -92,6 +93,7 @@
     });
   }
   if (scrim) scrim.addEventListener("click", closeMenu);
+  if (menuBtn) menuBtn.addEventListener("click", openMenu);
   navAnchors.forEach(function (a) { a.addEventListener("click", function () { if (isMobile()) closeMenu(); }); });
 
   function onScroll() {

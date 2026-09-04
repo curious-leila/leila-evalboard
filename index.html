@@ -12,6 +12,16 @@
 </head>
 <body>
 
+<div class="m-topbar">
+  <a class="brand" href="#overview" aria-label="返回顶部">
+    <svg class="brand-mark" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5" class="mk-hot"/></svg>
+    <span class="brand-name">leila-evalboard</span>
+  </a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="sidebar" aria-label="打开导航">
+    <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
 <!-- ============ 侧边栏 ============ -->
 <div class="scrim" id="scrim" hidden></div>
 <aside class="sidebar" id="sidebar">
@@ -59,7 +69,6 @@
       <p class="pagehead-sub">基于人机一致性，而不是模型自报置信度，判断不同审校场景可以被授予多大的自动化权限。</p>
     </div>
     <div class="pagehead-actions">
-      <span class="pill pill-neutral">Pilot 数据冻结版</span>
       <a class="btn btn-primary" href="#strategy">分流策略</a>
     </div>
   </header>
