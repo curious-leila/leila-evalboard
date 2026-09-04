@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大模型译文审校可靠性评测 · leila-evalboard</title>
+<meta name="description" content="基于人机一致性评测证据，展示大模型在不同审校场景下的可靠性边界与人工介入策略。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ 侧边栏 ============ -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="sidebar" id="sidebar">
+  <div class="side-head">
+    <a class="brand" href="#overview">
+      <svg class="brand-mark" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5" class="mk-hot"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">leila-evalboard</span>
+        <span class="brand-sub">译文审校可靠性评测</span>
+      </span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="关闭导航">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <nav class="nav-links" id="navLinks" aria-label="主导航">
+    <p class="nav-group">评测证据</p>
+    <ul>
+      <li><a class="nav-link is-active" href="#overview"><span class="nv">01</span>概览</a></li>
+      <li><a class="nav-link" href="#matrix"><span class="nv">02</span>可靠性矩阵</a></li>
+      <li><a class="nav-link" href="#cases"><span class="nv">03</span>分歧案例</a></li>
+    </ul>
+    <p class="nav-group">产品决策</p>
+    <ul>
+      <li><a class="nav-link" href="#strategy"><span class="nv">04</span>分流策略</a></li>
+      <li><a class="nav-link" href="#method"><span class="nv">05</span>评测方法</a></li>
+    </ul>
+  </nav>
+
+  <div class="side-foot">
+    <span class="freeze-badge"><i class="dot d-green"></i>数据冻结 · 2026-08</span>
+    <a class="side-link" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 0C3.6 0 0 3.6 0 8c0 3.5 2.3 6.5 5.4 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.2-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.2 0 3.1-1.9 3.8-3.6 4 .3.3.6.8.6 1.6v2.2c0 .2.1.5.5.4C13.7 14.5 16 11.5 16 8c0-4.4-3.6-8-8-8z" fill="currentColor"/></svg>
+      GitHub
+    </a>
+  </div>
+</aside>
+
+<!-- ============ 主内容 ============ -->
+<div class="main" id="main">
+  <header class="pagehead" id="overview">
+    <div>
+      <h1>大模型译文审校可靠性评测</h1>
+      <p class="pagehead-sub">基于人机一致性，而不是模型自报置信度，判断不同审校场景可以被授予多大的自动化权限。</p>
+    </div>
+    <div class="pagehead-actions">
+      <span class="pill pill-neutral">Pilot 数据冻结版</span>
+      <a class="btn btn-primary" href="#strategy">分流策略</a>
+    </div>
+  </header>
+
+  <!-- KPI -->
+  <section class="kpis" aria-label="核心数据">
+    <div class="card kpi">
+      <p class="kpi-label">双语语料</p>
+      <p class="kpi-num">94</p>
+      <p class="kpi-desc">营销 · 客服 · 界面三类</p>
+    </div>
+    <div class="card kpi">
+      <p class="kpi-label">人机双评</p>
+      <p class="kpi-num">180</p>
+      <p class="kpi-desc">15 语料 × 3 模型 × 4 维度</p>
+    </div>
+    <div class="card kpi">
+      <p class="kpi-label">整体直接一致率</p>
+      <p class="kpi-num">95%</p>
+      <p class="kpi-desc">人工与模型评分整体一致</p>
+    </div>
+    <div class="card kpi">
+      <p class="kpi-label">Gwet's AC1</p>
+      <p class="kpi-num">0.947</p>
+      <p class="kpi-desc">偏态分布下的一致性系数</p>
+    </div>
+  </section>
+
+  <!-- 设计概览 -->
+  <section class="section" id="design">
+    <div class="sec-head">
+      <h2>评测设计</h2>
+      <p class="sec-sub">MQM 四维框架 × 四级严重度 × 三档风险，人工与模型按同一标准独立评分。</p>
+    </div>
+    <div class="design-grid">
+      <div class="card block">
+        <p class="block-t">内容类型</p>
+        <p class="block-b">营销文案 · 客服话术 · 界面文案</p>
+      </div>
+      <div class="card block">
+        <p class="block-t">四个质量维度</p>
+        <p class="block-b">术语一致性 · 准确性 · 本地化规范 · 受众适配性</p>
+      </div>
+      <div class="card block">
+        <p class="block-t">四级严重度</p>
+        <p class="block-b">无问题 / 轻微 / 严重 / 极严重（MQM）</p>
+      </div>
+      <div class="card block">
+        <p class="block-t">评分角色分离</p>
+        <p class="block-b">GPT-4o · Claude · Gemini 生成译文，Qwen 独立评分，避免模型评价自己</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 可靠性矩阵 -->
+  <section class="section" id="matrix">
+    <div class="sec-head">
+      <h2>可靠性矩阵</h2>
+      <p class="sec-sub">整体高一致 ≠ 所有场景都适合自动放行：把「维度 × 风险」交叉为 12 格，逐格看人机一致率。</p>
+    </div>
+
+    <div class="card matrix-card">
+      <table class="matrix">
+        <thead>
+          <tr><th scope="col" class="corner"></th><th scope="col">高风险</th><th scope="col">中风险</th><th scope="col">低风险</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">术语一致性</th>
+            <td class="cell cell-error" data-key="T-H" tabindex="0" role="button" aria-label="术语一致性 高风险：人机一致率 61%，11 对 18"><span class="rate">61%</span><span class="frac">11/18</span></td>
+            <td class="cell" data-key="T-M" tabindex="0" role="button" aria-label="术语一致性 中风险：人机一致率 100%，18 对 18"><span class="rate">100%</span><span class="frac">18/18</span></td>
+            <td class="cell" data-key="T-L" tabindex="0" role="button" aria-label="术语一致性 低风险：人机一致率 100%，9 对 9"><span class="rate">100%</span><span class="frac">9/9</span></td>
+          </tr>
+          <tr>
+            <th scope="row">准确性</th>
+            <td class="cell cell-warn" data-key="A-H" tabindex="0" role="button" aria-label="准确性 高风险：人机一致率 94%，17 对 18"><span class="rate">94%</span><span class="frac">17/18</span></td>
+            <td class="cell" data-key="A-M" tabindex="0" role="button" aria-label="准确性 中风险：人机一致率 100%，18 对 18"><span class="rate">100%</span><span class="frac">18/18</span></td>
+            <td class="cell" data-key="A-L" tabindex="0" role="button" aria-label="准确性 低风险：人机一致率 100%，9 对 9"><span class="rate">100%</span><span class="frac">9/9</span></td>
+          </tr>
+          <tr>
+            <th scope="row">本地化规范</th>
+            <td class="cell" data-key="L-H" tabindex="0" role="button" aria-label="本地化规范 高风险：人机一致率 100%，18 对 18"><span class="rate">100%</span><span class="frac">18/18</span></td>
+            <td class="cell cell-warn" data-key="L-M" tabindex="0" role="button" aria-label="本地化规范 中风险：人机一致率 94%，17 对 18"><span class="rate">94%</span><span class="frac">17/18</span></td>
+            <td class="cell" data-key="L-L" tabindex="0" role="button" aria-label="本地化规范 低风险：人机一致率 100%，9 对 9"><span class="rate">100%</span><span class="frac">9/9</span></td>
+          </tr>
+          <tr>
+            <th scope="row">受众适配性</th>
+            <td class="cell" data-key="U-H" tabindex="0" role="button" aria-label="受众适配性 高风险：人机一致率 100%，18 对 18"><span class="rate">100%</span><span class="frac">18/18</span></td>
+            <td class="cell" data-key="U-M" tabindex="0" role="button" aria-label="受众适配性 中风险：人机一致率 100%，18 对 18"><span class="rate">100%</span><span class="frac">18/18</span></td>
+            <td class="cell" data-key="U-L" tabindex="0" role="button" aria-label="受众适配性 低风险：人机一致率 100%，9 对 9"><span class="rate">100%</span><span class="frac">9/9</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <span class="lg"><i class="dot d-err"></i>低于 90% · 红灯</span>
+        <span class="lg"><i class="dot d-warn"></i>94% · 黄灯</span>
+        <span class="lg"><i class="dot d-ok"></i>100% · 全一致</span>
+        <span class="lg-hint">每格数字 = 人机一致数/该格判断总数；点击格子查看介入策略与分歧详情。</span>
+      </div>
+    </div>
+
+    <div class="cell-detail" id="cell-detail" aria-live="polite">
+      <p class="cell-detail-empty">点击矩阵任意格子，查看一致样本、介入策略与代表性分歧</p>
+    </div>
+
+    <div class="callout callout-error">
+      <p class="callout-t">唯一红灯格：术语一致性 × 高风险 · 11/18（61%）</p>
+      <p class="callout-b">十八个判断中仅十一次人机一致，分歧集中于 AI 无依据断言「官方译法」后放行——AI 可靠性不是统一常数，信任必须落到「维度 × 风险」的格子上。</p>
+    </div>
+  </section>
+
+  <!-- 分歧案例 -->
+  <section class="section" id="cases">
+    <div class="sec-head">
+      <h2>分歧案例</h2>
+      <p class="sec-sub">不只看一致率，还要解释为什么不一致：9 条剩余分歧逐条外部核查，暴露模型与人工各自的盲区。</p>
+    </div>
+
+    <div class="case-grid">
+      <div class="card case-card">
+        <div class="case-top">
+          <span class="tag tag-err">AI 过度宽松 · 6 次</span>
+          <h3>AI 把无依据的「官方译法」直接放行</h3>
+        </div>
+        <div class="case-row">
+          <p class="cr-name">claim 术语 <span class="mono-s">S061 · S065 · S069</span></p>
+          <p class="cr-body">AI 断言 claim 译「申诉/索赔」即 PayPal 官方译法；外部核实官方用法为「补偿申请」。</p>
+        </div>
+        <div class="case-row">
+          <p class="cr-name">Kick 术语 <span class="mono-s">S121 · S125 · S129</span></p>
+          <p class="cr-body">AI 视「踢出/踢」为标准译法或低估严重度；钉钉、腾讯会议等界面惯用「移出/移除」。</p>
+        </div>
+        <p class="case-judge">判断：术语问题必须外部证据，不能由模型自己声明译法规范。</p>
+        <details class="evidence">
+          <summary>查看评测依据</summary>
+          <div class="evidence-body">
+            <p>claim：<a href="https://paypal.com/c2/security/resolve-disputes" target="_blank" rel="noopener">PayPal 简体中文帮助中心</a>核实后 3 条 AI 放行被人工纠回（Minor）。</p>
+            <p>Kick：单字「踢」作按钮标签需停顿辨析，S125/S129 人工判 Major、AI 仅判 Minor——AI 对口语化单字按钮的术语问题判断偏宽。</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="card case-card">
+        <div class="case-top">
+          <span class="tag tag-info">人工漏检 · 3 次</span>
+          <h3>AI 抓回人工漏检：「发送退款」</h3>
+        </div>
+        <div class="case-row">
+          <p class="cr-name">S077 · S081 · S084</p>
+          <p class="cr-body">人工首评把「发送退款」扫读为「发起退款」；AI 判轻微并附外部证据，人工核实后 3 条改判全部成立：PayPal 发放退款 · 支付宝发起退款 · 微信申请退款。</p>
+        </div>
+        <p class="case-judge">判断：Human 不天然等于绝对真值——人工判断、模型判断、外部证据三者形成可验证关系。</p>
+        <details class="evidence">
+          <summary>查看评测依据</summary>
+          <div class="evidence-body">
+            <ul>
+              <li><a href="https://paypal.com/c2/cshelp/article/如何发放退款-help101" target="_blank" rel="noopener">PayPal 帮助中心：如何发放退款</a></li>
+              <li><a href="https://opendocs.alipay.com/open/02ekfs" target="_blank" rel="noopener">支付宝开放平台：发起退款</a></li>
+              <li><a href="https://pay.weixin.qq.com/doc/v3/merchant/4013071001" target="_blank" rel="noopener">微信支付商户平台：申请退款</a></li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="card two-risk">
+      <div class="risk-col">
+        <p class="risk-t">模型风险</p>
+        <ul>
+          <li>无外部依据时自信断言「官方译法」</li>
+          <li>把「看起来合理」当作「有事实依据」</li>
+        </ul>
+      </div>
+      <div class="risk-col">
+        <p class="risk-t">人工风险</p>
+        <ul>
+          <li>依赖语言直觉</li>
+          <li>漏掉真实产品中的既有术语规范</li>
+        </ul>
+      </div>
+      <p class="risk-take">产品问题不是「AI 和 Human 谁更准」，而是不同判断各自应拥有多大的决策权限。</p>
+    </div>
+  </section>
+
+  <!-- 分流策略 -->
+  <section class="section" id="strategy">
+    <div class="sec-head">
+      <h2>分流策略</h2>
+      <p class="sec-sub">评测的终点不是准确率，而是自动化权限：十二格矩阵 → 三级人工介入。</p>
+    </div>
+
+    <div class="strat-grid">
+      <div class="card strat">
+        <div class="strat-head sh-err">
+          <span class="tag tag-err">红色</span>
+          <p>强制人工</p>
+        </div>
+        <p class="strat-dim">术语一致性 × 高风险</p>
+        <p class="strat-rate"><strong>100%</strong> 人工复核</p>
+        <p class="strat-why">一致率 11/18（61%）：可靠性缺口明显，不授予模型独立放行权。</p>
+      </div>
+      <div class="card strat">
+        <div class="strat-head sh-warn">
+          <span class="tag tag-warn">黄色</span>
+          <p>抽样复核</p>
+        </div>
+        <p class="strat-dim">准确性 × 高风险<br>本地化规范 × 中风险</p>
+        <p class="strat-rate"><strong>模型判断 + 10%</strong> 人工抽检</p>
+        <p class="strat-why">一致率 17/18（94%）：整体可靠，仍有少量分歧需人工校验。</p>
+      </div>
+      <div class="card strat">
+        <div class="strat-head sh-ok">
+          <span class="tag tag-ok">绿色</span>
+          <p>自动评分 + 抽检兜底</p>
+        </div>
+        <p class="strat-dim">其余九个组合</p>
+        <p class="strat-rate"><strong>AI 自动评分 + 5%</strong> 人工抽检</p>
+        <p class="strat-why">一致率 100%（18/18 或 9/9）；AI 曾抓回人工漏检，样本内满分 ≠ 永不犯错。</p>
+      </div>
+    </div>
+
+    <div class="card replay">
+      <div class="replay-line">
+        <p class="replay-t">离线策略推演：100% / 10% / 5% 三档规则下，人工介入量</p>
+        <p class="replay-num">28 / 180 = <strong>15.5%</strong></p>
+      </div>
+      <p class="replay-note">基于试跑一致率的策略推演，仅用于比较分流规则下的人工介入规模，不代表线上业务收益或生产环境复核率。</p>
+    </div>
+
+    <div class="card pipeline">
+      <div class="pipe-line">
+        <p class="pipe-t">后续审校 Agent 将三档规则抽象为自动化权限，并结合实时证据状态生成处理路径：</p>
+        <div class="pipe-tags">
+          <span class="pipe">自动信任 <em>AUTO_TRUST</em></span>
+          <span class="pipe">抽样复核 <em>SAMPLE_AUDIT</em></span>
+          <span class="pipe">人工验证 <em>HUMAN_VERIFY</em></span>
+        </div>
+      </div>
+      <p class="pipe-chain">评测证据 → 候选策略 → 产品化策略</p>
+    </div>
+  </section>
+
+  <!-- 页脚：方法 -->
+  <footer id="method">
+    <div class="sec-head">
+      <h2>评测方法</h2>
+      <p class="sec-sub">数据全部来自冻结的 Pilot 评测结果（2026-07 至 2026-08）。</p>
+    </div>
+    <div class="card method-card">
+      <p><strong>评分流程：</strong>GPT-4o / Claude / Gemini 生成 45 份候选译文并匿名编号 → 人工与 Qwen 按同一套四维标准独立评分（各 180 次判断）→ 计算 Cohen's Kappa 与 Gwet's AC1 → 分歧样本逐条外部核查改判。</p>
+      <p><strong>事实边界：</strong>94 条语料完成构建与风险标注，其中 15 条进入正式双评；15.5% 为离线推演值，非线上实测。</p>
+    </div>
+    <p class="footer-line">评测看板 · <a href="#" target="_blank" rel="noopener">GitHub ↗</a> · 基于人机一致性定义 AI 产品的自动化边界</p>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
