@@ -106,4 +106,18 @@
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  /* ---------- 移动端轻提示：首次进入提示打开目录（每个会话一次） ---------- */
+  var navTip = document.getElementById("navTip");
+  if (navTip) {
+    var shown = false;
+    try { shown = sessionStorage.getItem("evalNavTip") === "1"; } catch (e) { /* 隐私模式忽略 */ }
+    if (!shown) {
+      setTimeout(function () { navTip.classList.add("show"); }, 600);
+      setTimeout(function () {
+        navTip.classList.remove("show");
+        try { sessionStorage.setItem("evalNavTip", "1"); } catch (e) { /* 忽略 */ }
+      }, 4600);
+    }
+  }
 })();
