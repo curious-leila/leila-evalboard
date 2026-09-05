@@ -85,7 +85,7 @@ body {
 .brand-mark rect { fill: #F3E3D3; stroke: var(--accent); stroke-width: 1.2; }
 .brand-mark .mk-hot { fill: var(--accent); stroke: #8F4D22; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.3; }
-.brand-name { font-weight: 700; font-size: 14px; color: var(--fg); letter-spacing: 0.01em; }
+.brand-name { font-weight: 700; font-size: 14px; color: var(--fg); letter-spacing: 0.01em; white-space: nowrap; }
 .brand-sub { font-size: 11.5px; color: var(--fg-3); }
 
 .nav-toggle {
@@ -163,7 +163,7 @@ body {
   display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
   padding: 52px 0 22px; flex-wrap: wrap;
 }
-.pagehead h1 { font-size: 30px; letter-spacing: -0.01em; }
+.pagehead h1 { font-size: clamp(23px, 4.5vw, 30px); letter-spacing: -0.01em; white-space: nowrap; }
 .pagehead-sub { margin-top: 10px; max-width: 46em; color: var(--fg-2); font-size: 15px; }
 .pagehead-actions { display: flex; align-items: center; gap: 10px; padding-bottom: 6px; }
 
@@ -310,8 +310,16 @@ table.matrix th.corner { border: none; }
 
 .evidence { margin-top: 12px; }
 .evidence summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--accent); list-style: none; }
-.evidence summary::before { content: "＋ "; }
-.evidence[open] summary::before { content: "－ "; }
+.evidence summary::-webkit-details-marker { display: none; }
+.evidence summary::before {
+  content: "▾";
+  display: inline-block;
+  color: var(--accent);
+  font-size: 11px;
+  margin-right: 7px;
+  transition: transform 0.18s ease;
+}
+.evidence[open] summary::before { transform: rotate(180deg); }
 .evidence-body { font-size: 13px; color: var(--fg-2); padding: 8px 0 0; }
 .evidence-body p { margin: 4px 0; }
 .evidence-body ul { margin: 4px 0; }
@@ -419,7 +427,7 @@ footer { padding: 14px 0 0; }
 @media (max-width: 640px) {
   .kpis { grid-template-columns: 1fr; }
   .design-grid { grid-template-columns: 1fr; }
-  .pagehead h1 { font-size: 25px; }
+  .pagehead h1 { font-size: 23px; }
   .two-risk { grid-template-columns: 1fr; }
   .risk-col + .risk-col { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 10px; }
 }
