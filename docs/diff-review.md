@@ -7,18 +7,18 @@
 
 | score_id | 维度                       | 人工      | AI      | 判定            | 一句话依据                                                        |
 | -------- | ------------------------ | ------- | ------- | ------------- | ------------------------------------------------------------ |
-| S006     | Accuracy                 | Neutral | Minor   | **A⁠I⁠有⁠误** |
-| S031     | Locale Conventions       | Neutral | Minor   | **框⁠架⁠歧⁠义** |
-| S061     | Terminology              | Minor   | Neutral | **A⁠I⁠有⁠误** |
-| S065     | Terminology              | Minor   | Neutral | **A⁠I⁠有⁠误** |
-| S069     | Terminology              | Minor   | Neutral | **A⁠I⁠有⁠误** |
-| S077     | Terminology              | Minor   | Minor   | **采⁠纳⁠A⁠I**（已⁠闭⁠环） | 外部核实成立：PayPal 官方"发放退款"（help101）、支付宝"发起退款"（02ekfs）、微信支付"申请退款"（4013071001），"发送退款"非行业惯用；人工首评与"发起退款"仅一字之差扫读漏检。 |
-| S081     | Terminology              | Minor   | Minor   | **采⁠纳⁠A⁠I**（已⁠闭⁠环） | 外部核实成立：PayPal 官方"发放退款"（paypal.com/c2/cshelp/article/如何发放退款-help101）、支付宝"发起退款"（opendocs.alipay.com/open/02ekfs）、微信"申请退款"（doc/v3/merchant/4013071001），"发送退款"非行业惯用。 |
-| S084     | Audience Appropriateness | Minor   | Minor   | **采⁠纳⁠A⁠I**（已⁠闭⁠环） | 外部核实成立："发送退款"在中文支付语境带明显直译腔；PayPal 用"发放退款"、支付宝用"发起退款"、微信用"申请退款"，人工漏检原因为与"发起退款"一字之差。 |
-| S121     | Terminology              | Minor   | Neutral | **A⁠I⁠有⁠误** |
-| S125     | Terminology              | Major   | Minor   | **A⁠I⁠有⁠误** |
-| S129     | Terminology              | Major   | Minor   | **A⁠I⁠有⁠误** |
-| S133     | Terminology              | Neutral | Minor   | **A⁠I⁠有⁠误** |
+| S006     | Accuracy                 | Neutral | Minor   | **A⁠I⁠有⁠误**      | AI 将营销句式的修辞性增译归入 Accuracy 命题偏移而扣分；框架规定修辞性增译在 Accuracy 不扣分，维持人工 Neutral。 |
+| S031     | Locale Conventions       | Neutral | Minor   | **框⁠架⁠歧⁠义**      | 中英混排空格不在 Locale 维度定义（数字/货币/日期/单位格式）范围内，属框架未覆盖项，AI 越界扣分；本轮维持 Neutral。 |
+| S061     | Terminology              | Minor   | Neutral | **A⁠I⁠有⁠误**      | AI 声称 PayPal 官方将 claim 译为"申诉"并无依据；官方帮助中心实际使用"补偿申请"（paypal.com/c2/security/resolve-disputes），维持人工 Minor。 |
+| S065     | Terminology              | Minor   | Neutral | **A⁠I⁠有⁠误**      | AI 声称 PayPal 简体中文官方对 claim 的译法为"申诉"、动词搭配为"升级"，与官方文档不符（官方为"补偿申请"），维持人工 Minor。 |
+| S069     | Terminology              | Minor   | Neutral | **A⁠I⁠有⁠误**      | AI 声称官方将 claim 译为"索赔"；简体官方帮助中心无此译法（繁体版为"索償"），维持人工 Minor。 |
+| S077     | Terminology              | Minor   | Minor   | **采⁠纳⁠A⁠I⁠（⁠已⁠闭⁠环⁠）** | 外部核实成立：PayPal 官方"发放退款"（help101）、支付宝"发起退款"（02ekfs）、微信支付"申请退款"（4013071001），"发送退款"非行业惯用；人工首评与"发起退款"仅一字之差扫读漏检。 |
+| S081     | Terminology              | Minor   | Minor   | **采⁠纳⁠A⁠I⁠（⁠已⁠闭⁠环⁠）** | 外部核实成立：PayPal 官方"发放退款"（paypal.com/c2/cshelp/article/如何发放退款-help101）、支付宝"发起退款"（opendocs.alipay.com/open/02ekfs）、微信"申请退款"（doc/v3/merchant/4013071001），"发送退款"非行业惯用。 |
+| S084     | Audience Appropriateness | Minor   | Minor   | **采⁠纳⁠A⁠I⁠（⁠已⁠闭⁠环⁠）** | 外部核实成立："发送退款"在中文支付语境带明显直译腔；PayPal 用"发放退款"、支付宝用"发起退款"、微信用"申请退款"，人工漏检原因为与"发起退款"一字之差。 |
+| S121     | Terminology              | Minor   | Neutral | **A⁠I⁠有⁠误**      | AI 称"踢出"为标准惯用译法，无外部依据；钉钉/企业微信/腾讯会议成员管理界面均用"移出/移除"，"踢出"偏口语化与游戏化，维持人工 Minor。 |
+| S125     | Terminology              | Major   | Minor   | **A⁠I⁠有⁠误**      | AI 低估偏离程度：单字"踢"作按钮标签在中文软件界面极为罕见，受众需停顿辨析（Q1 触发），人工 Major。 |
+| S129     | Terminology              | Major   | Minor   | **A⁠I⁠有⁠误**      | AI 低估偏离程度：单字"踢"按钮标签强烈关联游戏与娱乐场景，目标受众无法即时确认其指涉动作（Q1 触发），人工 Major。 |
+| S133     | Terminology              | Neutral | Minor   | **A⁠I⁠有⁠误**      | AI 以加密钱包领域"助记词"惯例质疑通用支付安全语境下的"恢复短语"，该断言超出本条 UI 场景适用范围，维持人工 Neutral。 |
 
 
 **统计：采纳AI 3 条（已闭环） | AI有误 8 条 | 框架歧义 1 条**
