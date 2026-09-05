@@ -1,0 +1,14 @@
+# 敏感信息与本地文件（防御性规则，公开仓库禁止误传）
+.env
+*.env
+__pycache__/
+*.pyc
+.reasonix/
+_run*.txt
+_rerun*.txt
+_*.txt
+_*.json
+*.xlsx
+*.wav
+*.mp3
+*.docx

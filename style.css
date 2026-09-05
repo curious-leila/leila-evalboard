@@ -386,6 +386,19 @@ footer { padding: 14px 0 0; }
 .footer-line { margin-top: 18px; font-size: 13px; color: var(--fg-3); }
 .footer-line a { color: var(--accent); }
 
+/* ============ 证据文档链接（弱于 CTA 的轻量入口） ============ */
+.doc-links {
+  display: flex; flex-wrap: wrap; gap: 4px 18px;
+  margin: 16px 0 2px;
+  font-size: 12.5px; color: var(--fg-3);
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+}
+.section > .container .doc-links { margin-left: 0; }
+.doc-links a { color: var(--accent); font-weight: 500; }
+.doc-links a:hover { text-decoration: underline; }
+footer .doc-links { margin-top: 14px; }
+
 /* ============ 响应式 ============ */
 @media (max-width: 1080px) {
   .kpis { grid-template-columns: repeat(2, 1fr); }

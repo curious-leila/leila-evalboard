@@ -123,6 +123,10 @@
         <p class="block-b">GPT-4o · Claude · Gemini 生成译文，Qwen 独立评分，避免模型评价自己</p>
       </div>
     </div>
+      <p class="doc-links">
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/docs/evaluation-methodology.md" target="_blank" rel="noopener">评测方法与评分框架 ↗</a>
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/docs/prompts/terminology.md" target="_blank" rel="noopener">四维评分 Prompt ↗</a>
+      </p>
   </section>
 
   <!-- 可靠性矩阵 -->
@@ -180,6 +184,10 @@
       <p class="callout-t">唯一红灯格：术语一致性 × 高风险 · 11/18（61%）</p>
       <p class="callout-b">十八个判断中仅十一次人机一致，分歧集中于 AI 无依据断言「官方译法」后放行，AI 可靠性不是统一常数，信任必须落到「维度 × 风险」的格子上。</p>
     </div>
+      <p class="doc-links">
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/docs/consistency-report.md" target="_blank" rel="noopener">人机一致性报告 ↗</a>
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/docs/reliability-matrix.md" target="_blank" rel="noopener">可靠性矩阵与策略映射 ↗</a>
+      </p>
   </section>
 
   <!-- 分歧案例 -->
@@ -253,6 +261,10 @@
       </div>
       <p class="risk-take">产品问题不是「AI 和 Human 谁更准」，而是不同判断各自应拥有多大的决策权限。</p>
     </div>
+      <p class="doc-links">
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/docs/diff-review.md" target="_blank" rel="noopener">完整分歧案例复核 ↗</a>
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/docs/prompt-iteration.md" target="_blank" rel="noopener">Prompt 迭代记录 ↗</a>
+      </p>
   </section>
 
   <!-- 分流策略 -->
@@ -311,6 +323,9 @@
       </div>
       <p class="pipe-chain">评测证据 → 候选策略 → 产品化策略</p>
     </div>
+      <p class="doc-links">
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/docs/reliability-matrix.md" target="_blank" rel="noopener">可靠性矩阵与策略映射 ↗</a>
+      </p>
   </section>
 
   <!-- 页脚：方法 -->
@@ -323,6 +338,10 @@
       <p><strong>评分流程：</strong>GPT-4o / Claude / Gemini 生成 45 份候选译文并匿名编号 → 人工与 Qwen 按同一套四维标准独立评分（各 180 次判断）→ 计算 Cohen's Kappa 与 Gwet's AC1 → 分歧样本逐条外部核查改判。</p>
       <p><strong>事实边界：</strong>94 条语料完成构建与风险标注，其中 15 条进入正式双评；15.5% 为离线推演值，非线上实测。</p>
     </div>
+      <p class="doc-links">
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/README.md" target="_blank" rel="noopener">README ↗</a>
+        <a href="https://github.com/curious-leila/leila-evalboard/blob/main/data/evaluation-results.csv" target="_blank" rel="noopener">公开评测数据 ↗</a>
+      </p>
     <p class="footer-line">评测看板 · <a href="https://github.com/curious-leila/leila-evalboard" target="_blank" rel="noopener">GitHub ↗</a> · 基于人机一致性定义 AI 产品的自动化边界</p>
   </footer>
 </div>
